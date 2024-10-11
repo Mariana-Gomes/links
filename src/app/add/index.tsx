@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { styles } from "./styles";
 import { colors } from "@/styles/colors";
@@ -14,7 +14,19 @@ export default function Add() {
   const [category, setCategory] = useState("");
 
   function handleAdd() {
-    console.log({ name, url });
+    if (!category) {
+      return Alert.alert("Categoria", "Selecione a categoria");
+    }
+
+    if (!name.trim()) {
+      return Alert.alert("Nome", "Informe o nome");
+    }
+
+    if (!url.trim()) {
+      return Alert.alert("URL", "Informe a URL");
+    }
+
+    console.log({ category, name, url });
   }
 
   return (
@@ -30,7 +42,7 @@ export default function Add() {
 
       <View style={styles.form}>
         <Input placeholder="Nome" onChangeText={setName} autoCorrect={false} />
-        <Input placeholder="Url" onChangeText={setUrl} autoCorrect={false} />
+        <Input placeholder="URL" onChangeText={setUrl} autoCorrect={false} />
         <Button title="Adicionar" onPress={handleAdd} />
       </View>
     </View>
